@@ -1,6 +1,6 @@
 /* 
  * tplawesome is a light and easy to use template engine.
- * The only thing it does is replacing {{keys}} from an HTML template with formatted JSON data
+ * The only thing it does is replacing {{keys}} from an HTML template with formatted JSON data.
  * https://github.com/FriesFlorian/tplawesome
  */
 function tplawesome(e, t) {
@@ -13,11 +13,10 @@ function tplawesome(e, t) {
   return res
 }
 
-// Function called on form submit
+// Function called on form submit.
 $(function() {
   $("form").on("submit", function(e) {
     e.preventDefault();
-    console.log("clicked");
     search($("#search").val().replace(/%20/g, "+"));
   });
 });
@@ -28,24 +27,25 @@ $(function() {
 function showResponse(response) {
     // var responseString = JSON.stringify(response, '', 2);
     // document.getElementById('response').innerHTML += responseString;
+
     // Clear previous results
     $("#results").html("");
 
-    // Loop over new results and append to results element
+    // Loop over new results and append to results element.
     $.each(response.items, function(index, item) {
-    	// Get the template and use tplawesome to bind key/values 
-      $.get("videoItem.html", function(data) {
+  	// Get the template and use tplawesome to bind key/values. 
+    $.get("videoItem.html", function(data) {
 
-        // Debugging template load
-        // console.log("temp", data);
-        
-        $("#results").append(tplawesome(data, [{
-          "title": item.snippet.title,
-          "videoid": item.id.videoId
-        }]));
-      });
+      // Debugging template load.
+      // console.log("temp", data);
+
+      $("#results").append(tplawesome(data, [{
+        "title": item.snippet.title,
+        "videoid": item.id.videoId
+      }]));
     });
-  }
+  });
+}
   
 // Called automatically when JavaScript client library is loaded.
 function onClientLoad() {
@@ -67,22 +67,22 @@ function search(query) {
 	// Keeping personal YouTube client key in external file.
 	$.get("clientKey.js");
 
-		// Insert your own client key here and delete line above.
-    // gapi.client.setApiKey('xxxxxxxxxxxxxxxxxxxxxxxxxx');
+	// Insert your own client key here and delete line above.
+  // gapi.client.setApiKey('xxxxxxxxxxxxxxxxxxxxxxxxxx');
 
-    console.log("User typed: ", query);
-    // Use the JavaScript client library to create a search.list() API call.
-    var request = gapi.client.youtube.search.list({
-      part: 'snippet',
-      q: query,
-      order: 'viewCount',
-      publishedAfter: '2016-01-01T00:00:00Z'
-    });
-    // Send the request to the API server,
-    // and invoke onSearchRepsonse() with the response.
-    request.execute(onSearchResponse);
-    autoResizeVideo();
-  }
+  console.log("User typed: ", query);
+  // Use the JavaScript client library to create a search.list() API call.
+  var request = gapi.client.youtube.search.list({
+    part: 'snippet',
+    q: query,
+    order: 'viewCount',
+    publishedAfter: '2016-01-01T00:00:00Z'
+  });
+  // Send the request to the API server,
+  // and invoke onSearchRepsonse() with the response.
+  request.execute(onSearchResponse);
+  autoResizeVideo();
+}
 
 // Auto-resize video element when window size changes.
 $(window).on("resize", autoResizeVideo);
@@ -92,7 +92,7 @@ function onSearchResponse(response) {
   showResponse(response);
 }
 
-// Make video iframe element responsive 
+// Make video iframe element responsive. 
 function autoResizeVideo() {
   // var r = $("#results").width() * 9 / 16;
   // console.log("Resizing...", r);
